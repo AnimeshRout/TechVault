@@ -1,0 +1,12 @@
+{
+  "name": "enerzcloud-ecom",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TechVault — Full-Stack E-Commerce Platform",
+  "scripts": {
+    "dev": "concurrently -k --kill-others-on-fail -n backend,frontend,admin -c red,blue,green \"npm start --prefix tech_ecom/backend\" \"npm run dev --prefix tech_ecom\" \"npm run dev --prefix techy_admin\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.0"
+  }
+}

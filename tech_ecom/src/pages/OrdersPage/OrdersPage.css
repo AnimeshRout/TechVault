@@ -1,0 +1,190 @@
+/* ── Orders Page Styles ────────────────────────────────────────────────────── */
+.orders-page { padding-top: var(--space-xl); min-height: 80vh; padding-bottom: var(--space-3xl); }
+.orders-loading { text-align: center; padding: var(--space-3xl); color: var(--color-text-muted); }
+
+.orders-list { display: flex; flex-direction: column; gap: var(--space-md); margin-top: var(--space-xl); }
+
+.order-card { padding: var(--space-lg); }
+
+.order-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--space-md); }
+.order-id { font-weight: 700; font-size: 0.9375rem; }
+.order-date { font-size: 0.75rem; color: var(--color-text-muted); margin-top: 2px; }
+
+.order-tracking {
+  display: flex; align-items: center; gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-md);
+  font-size: 0.8125rem;
+}
+.tracking-label { color: var(--color-text-muted); font-weight: 500; }
+.tracking-number { color: var(--color-primary-light); font-weight: 600; }
+
+.order-items { display: flex; flex-direction: column; gap: var(--space-sm); margin-bottom: var(--space-md); padding-bottom: var(--space-md); border-bottom: 1px solid var(--color-border); }
+
+.order-item { display: flex; align-items: center; gap: var(--space-md); }
+.order-item-img { width: 48px; height: 48px; object-fit: cover; border-radius: var(--radius-sm); background: var(--color-bg-tertiary); }
+.order-item-title { font-size: 0.8125rem; font-weight: 500; }
+.order-item-qty { font-size: 0.75rem; color: var(--color-text-muted); }
+.order-more { font-size: 0.75rem; color: var(--color-text-muted); padding-left: 64px; }
+
+/* Payment Info Row */
+.order-payment-info {
+  display: flex; align-items: center; gap: var(--space-md);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+}
+
+.payment-method-badge {
+  font-size: 0.75rem; font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.payment-status {
+  font-size: 0.6875rem; font-weight: 600;
+  padding: 2px 8px; border-radius: var(--radius-full);
+  text-transform: uppercase; letter-spacing: 0.3px;
+}
+
+.payment-status.completed {
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+}
+
+.payment-status.pending {
+  background: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+}
+
+.payment-status.failed {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+
+/* Pay Now Button */
+.pay-now-btn {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem !important;
+  padding: 4px 12px !important;
+  border-radius: var(--radius-full) !important;
+  margin-left: auto;
+}
+
+.order-footer {
+  display: flex; justify-content: space-between; align-items: center;
+}
+.order-total { font-size: 1rem; color: var(--color-text-secondary); }
+.order-total strong { color: var(--color-text-primary); }
+
+.order-actions {
+  display: flex; gap: var(--space-sm);
+}
+.order-actions .btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 0.75rem;
+}
+
+/* Cancel button styling */
+.btn-cancel-order {
+  color: var(--color-error) !important;
+}
+.btn-cancel-order:hover {
+  background: rgba(239, 68, 68, 0.08) !important;
+}
+
+/* Cancel Danger Button */
+.btn-danger {
+  background: var(--color-error) !important;
+  color: white !important;
+  border: none;
+}
+.btn-danger:hover {
+  background: #dc2626 !important;
+  opacity: 0.9;
+}
+.btn-danger:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Cancel Warning */
+.cancel-warning {
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; gap: var(--space-sm);
+  color: var(--color-error);
+  padding: var(--space-lg);
+}
+
+.cancel-warning p:first-of-type {
+  font-size: 1rem; font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.cancel-warning-sub {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted) !important;
+}
+
+/* ── Return Modal ────────────────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  padding: var(--space-lg);
+}
+
+.modal-content {
+  width: 100%; max-width: 520px;
+  padding: var(--space-xl);
+  max-height: 80vh; overflow-y: auto;
+}
+
+.modal-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: var(--space-lg);
+}
+.modal-header h3 { font-size: 1.125rem; font-weight: 700; }
+.modal-close {
+  color: var(--color-text-muted); transition: color var(--transition-fast);
+  display: flex; background: none; border: none; cursor: pointer;
+}
+.modal-close:hover { color: var(--color-text-primary); }
+
+.modal-body { margin-bottom: var(--space-lg); }
+.modal-description {
+  font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: var(--space-md);
+}
+
+.return-items { display: flex; flex-direction: column; gap: var(--space-sm); }
+.return-item-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+}
+.return-item-title { font-size: 0.8125rem; font-weight: 500; flex: 1; }
+.return-qty-control {
+  display: flex; align-items: center; gap: var(--space-sm);
+}
+.qty-btn {
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-elevated);
+  color: var(--color-text-primary);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.qty-btn:hover { border-color: var(--color-primary-light); color: var(--color-primary-light); }
+.qty-display { font-size: 0.8125rem; font-weight: 600; min-width: 50px; text-align: center; }
+
+.modal-footer {
+  display: flex; justify-content: flex-end; gap: var(--space-sm);
+  padding-top: var(--space-md); border-top: 1px solid var(--color-border);
+}
