@@ -46,6 +46,11 @@ configurePassport();
 // ─── EXPRESS APP ─────────────────────────────────────────────────────────────
 const app = express();
 
+// Trust first proxy (Render / Railway / Heroku). Without this,
+// req.ip always returns the proxy's IP → rate-limiter groups every user
+// together, and secure cookies can misbehave behind the reverse proxy.
+app.set('trust proxy', 1);
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // WEBHOOK ROUTES — MUST be BEFORE express.json() for raw body access
 // ═══════════════════════════════════════════════════════════════════════════════

@@ -53,12 +53,13 @@ export const register = catchAsync(async (req, res, next) => {
 
   // 5. Set httpOnly cookies + CSRF token
   setTokenCookies(res, accessToken, refreshToken);
-  generateCsrfToken(res);
+  const csrfToken = generateCsrfToken(res);
 
   // 6. Respond (exclude sensitive fields)
   res.status(201).json({
     status: 'success',
     message: 'Account created successfully',
+    csrfToken,
     data: {
       user: {
         _id: user._id,
@@ -119,12 +120,13 @@ export const login = catchAsync(async (req, res, next) => {
 
   // 8. Set httpOnly cookies + CSRF token
   setTokenCookies(res, accessToken, refreshToken);
-  generateCsrfToken(res);
+  const csrfToken = generateCsrfToken(res);
 
   // 9. Respond
   res.status(200).json({
     status: 'success',
     message: 'Logged in successfully',
+    csrfToken,
     data: {
       user: {
         _id: user._id,
@@ -216,11 +218,12 @@ export const refreshAccessToken = catchAsync(async (req, res, next) => {
 
   // 7. Set new cookies + refresh CSRF token
   setTokenCookies(res, newAccessToken, newRefreshToken);
-  generateCsrfToken(res);
+  const csrfToken = generateCsrfToken(res);
 
   res.status(200).json({
     status: 'success',
     message: 'Tokens refreshed successfully',
+    csrfToken,
   });
 });
 
@@ -469,14 +472,8 @@ export const deleteAccount = catchAsync(async (req, res, next) => {
   // Delete the user itself
   await User.findByIdAndDelete(userId);
 
-  // Clear auth cookies
-  const cookieOptions = {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-  };
-  res.clearCookie('accessToken', cookieOptions);
-  res.clearCookie('refreshToken', cookieOptions);
+  // Clear auth cookies (using shared utility for consistency)
+  clearTokenCookies(res);
 
   res.status(200).json({
     status: 'success',

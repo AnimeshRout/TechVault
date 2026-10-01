@@ -57,13 +57,13 @@ export const setTokenCookies = (res, accessToken, refreshToken) => {
     path: '/',
   });
 
-  // Refresh token cookie — long-lived, restricted path
+  // Refresh token cookie — long-lived
   res.cookie('refreshToken', refreshToken, {
     httpOnly: true,
     secure: isProduction,
     sameSite: isProduction ? 'none' : 'lax',
     maxAge: parseExpiry(process.env.JWT_REFRESH_EXPIRES || '7d'),
-    path: '/api/auth/refresh', // Only sent to the refresh endpoint
+    path: '/',
   });
 };
 
@@ -71,14 +71,29 @@ export const setTokenCookies = (res, accessToken, refreshToken) => {
  * Clear both token cookies on logout
  */
 export const clearTokenCookies = (res) => {
+  const isProduction = process.env.NODE_ENV === 'production';
+
+  // Must match the same attributes (secure, sameSite, path) that were used
+  // when setting the cookie, otherwise the browser won't clear them.
   res.cookie('accessToken', '', {
     httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? 'none' : 'lax',
     expires: new Date(0),
     path: '/',
   });
   res.cookie('refreshToken', '', {
     httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? 'none' : 'lax',
     expires: new Date(0),
-    path: '/api/auth/refresh',
+    path: '/',
+  });
+  res.cookie('csrf-token', '', {
+    httpOnly: false,
+    secure: isProduction,
+    sameSite: isProduction ? 'none' : 'lax',
+    expires: new Date(0),
+    path: '/',
   });
 };

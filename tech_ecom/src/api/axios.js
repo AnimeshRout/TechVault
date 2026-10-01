@@ -1,20 +1,32 @@
 /**
  * Axios API Instance
  * Centralized HTTP client with interceptors for auth token refresh.
- * Automatically attaches CSRF token from cookie on state-changing requests.
+ *
+ * CSRF Strategy (cross-origin safe):
+ *   - On login/register/refresh, the backend returns { csrfToken } in the body
+ *   - We store it in memory and attach as X-CSRF-Token header on mutating requests
+ *   - The backend also sets a csrf-token cookie (auto-sent by browser)
+ *   - Backend validates: cookie value === header value
  */
 import axios from 'axios';
 
-/**
- * Read a cookie value by name (needed to extract csrf-token for headers)
- */
-function getCookie(name) {
-  const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+// ─── CSRF Token Store (in-memory) ────────────────────────────────────────────
+let csrfToken = null;
+
+export function setCsrfToken(token) {
+  csrfToken = token;
+}
+
+export function getCsrfToken() {
+  // Try memory first, then fall back to cookie (works in same-origin dev)
+  if (csrfToken) return csrfToken;
+  const match = document.cookie.match(/(^| )csrf-token=([^;]+)/);
   return match ? match[2] : null;
 }
 
+// ─── Axios Instance ──────────────────────────────────────────────────────────
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: import.meta.env.VITE_API_URL || '/api',
   withCredentials: true, // Send cookies with every request
   headers: {
     'Content-Type': 'application/json',
@@ -25,15 +37,15 @@ const api = axios.create({
 api.interceptors.request.use((config) => {
   const mutatingMethods = ['post', 'put', 'patch', 'delete'];
   if (mutatingMethods.includes(config.method)) {
-    const csrfToken = getCookie('csrf-token');
-    if (csrfToken) {
-      config.headers['X-CSRF-Token'] = csrfToken;
+    const token = getCsrfToken();
+    if (token) {
+      config.headers['X-CSRF-Token'] = token;
     }
   }
   return config;
 });
 
-// ── Response Interceptor: Auto-refresh on 401 ────────────────────────────────
+// ── Response Interceptor: Capture CSRF token + auto-refresh on 401 ───────────
 let isRefreshing = false;
 let failedQueue = [];
 
@@ -46,7 +58,13 @@ const processQueue = (error) => {
 };
 
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    // Capture CSRF token from any response that includes it
+    if (response.data?.csrfToken) {
+      setCsrfToken(response.data.csrfToken);
+    }
+    return response;
+  },
   async (error) => {
     const originalRequest = error.config;
     const url = originalRequest?.url || '';
@@ -69,7 +87,11 @@ api.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        await api.post('/auth/refresh');
+        const refreshRes = await api.post('/auth/refresh');
+        // Capture new CSRF token from refresh response
+        if (refreshRes.data?.csrfToken) {
+          setCsrfToken(refreshRes.data.csrfToken);
+        }
         processQueue(null);
         return api(originalRequest);
       } catch (refreshError) {

@@ -1,27 +1,35 @@
 /**
  * ============================================================================
- * CSRF PROTECTION — Double-submit cookie pattern
+ * CSRF PROTECTION — Cross-origin safe, double-submit pattern
  * ============================================================================
- * Since we use httpOnly cookies for auth, we're exposed to CSRF.
- * This middleware:
- * 1. Sets SameSite=Lax on all auth cookies
- * 2. Generates a CSRF token on login/register
- * 3. Validates X-CSRF-Token header on state-changing requests
+ * Problem: Frontend (vercel.app) and backend (onrender.com) are different
+ * origins. JS on vercel.app CANNOT read cookies set by onrender.com.
+ *
+ * Solution:
+ * 1. On login/register/refresh, generate a CSRF token
+ * 2. Set it as a cookie (sameSite=None, secure) — browser auto-sends it
+ * 3. ALSO return it in the response body — frontend stores in memory
+ * 4. On mutating requests, frontend sends stored token as X-CSRF-Token header
+ * 5. Backend validates: cookie value === header value
+ *
+ * The attacker's site can trigger the cookie to be sent (it's sameSite=None),
+ * but they can NEVER read the token value to put in the header.
  * ============================================================================
  */
 import crypto from 'crypto';
 
 /**
- * Generate a CSRF token and set it as a non-httpOnly cookie
- * so the frontend JS can read it and send in headers.
+ * Generate a CSRF token, set it as a cookie, and return the value
+ * so the caller can include it in the response body.
  */
 export function generateCsrfToken(res) {
   const token = crypto.randomBytes(32).toString('hex');
+  const isProduction = process.env.NODE_ENV === 'production';
 
   res.cookie('csrf-token', token, {
-    httpOnly: false,      // Frontend needs to READ this
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'Lax',
+    httpOnly: false,           // Frontend needs to READ this (same-origin dev)
+    secure: isProduction,      // HTTPS only in production
+    sameSite: isProduction ? 'none' : 'lax', // Allow cross-origin in production
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     path: '/',
   });
@@ -30,7 +38,8 @@ export function generateCsrfToken(res) {
 }
 
 /**
- * Middleware: Validate CSRF token on state-changing requests
+ * Middleware: Validate CSRF token on state-changing requests.
+ * Compares the cookie value with the X-CSRF-Token header.
  * Skips GET, HEAD, OPTIONS (safe methods) and webhook routes.
  */
 export function csrfProtection(req, res, next) {
@@ -41,12 +50,14 @@ export function csrfProtection(req, res, next) {
   // Skip webhook routes (they use their own signature verification)
   if (req.path.startsWith('/api/webhooks')) return next();
 
-  // Skip auth routes that generate CSRF tokens (login, register, refresh)
+  // Skip auth routes that generate CSRF tokens (login, register, refresh, logout)
   const csrfExemptPaths = [
     '/api/auth/login',
     '/api/auth/register',
     '/api/auth/refresh',
     '/api/auth/logout',
+    '/api/auth/google',
+    '/api/auth/google/callback',
   ];
   if (csrfExemptPaths.includes(req.path)) return next();
 

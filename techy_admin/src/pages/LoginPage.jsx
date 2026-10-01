@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import useAuthStore from '../stores/authStore';
 import toast from 'react-hot-toast';
 
-const API_BASE = 'http://localhost:5000';
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 // Official Google "G" logo SVG
 function GoogleIcon({ size = 20 }) {
@@ -21,7 +21,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { login, isLoading, error, clearError, checkAuth } = useAuthStore();
-  const [form, setForm] = useState({ email: 'admin@techvault.com', password: 'Admin@123' });
+  const [form, setForm] = useState({ email: '', password: '' });
   const [showPw, setShowPw] = useState(false);
 
   // Handle Google OAuth redirect
