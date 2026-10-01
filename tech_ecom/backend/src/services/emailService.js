@@ -1,29 +1,21 @@
 /**
  * ============================================================================
- * EMAIL SERVICE — Nodemailer transactional email system
+ * EMAIL SERVICE — Resend transactional email system
  * ============================================================================
  * Professional HTML email templates matching TechVault branding.
  * Supports: order confirmation, shipped, delivered, refund, password reset,
  *           welcome, back-in-stock, low-stock admin alerts.
  * ============================================================================
  */
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
-// ─── TRANSPORTER ─────────────────────────────────────────────────────────────
-let _transporter;
-function getTransporter() {
-  if (!_transporter) {
-    _transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || 'smtp.gmail.com',
-      port: parseInt(process.env.SMTP_PORT) || 587,
-      secure: false,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
+// ─── RESEND CLIENT ───────────────────────────────────────────────────────────
+let _resend;
+function getResend() {
+  if (!_resend) {
+    _resend = new Resend(process.env.RESEND_API_KEY);
   }
-  return _transporter;
+  return _resend;
 }
 
 // ─── BASE TEMPLATE ───────────────────────────────────────────────────────────
@@ -300,21 +292,21 @@ export function backInStockEmail(user, product) {
 
 // ─── SEND EMAIL FUNCTION ─────────────────────────────────────────────────────
 export async function sendEmail({ to, subject, html }) {
-  // Skip sending if SMTP is not configured
-  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
-    console.log(`📧 [EMAIL SKIPPED — No SMTP config] To: ${to} | Subject: ${subject}`);
+  // Skip sending if Resend API key is not configured
+  if (!process.env.RESEND_API_KEY) {
+    console.log(`📧 [EMAIL SKIPPED — No RESEND_API_KEY] To: ${to} | Subject: ${subject}`);
     return { skipped: true };
   }
 
   try {
-    const info = await getTransporter().sendMail({
-      from: `"${process.env.FROM_NAME || 'TechVault'}" <${process.env.FROM_EMAIL || process.env.SMTP_USER}>`,
-      to,
+    const data = await getResend().emails.send({
+      from: `${process.env.FROM_NAME || 'TechVault'} <${process.env.FROM_EMAIL || 'onboarding@resend.dev'}>`,
+      to: Array.isArray(to) ? to : [to],
       subject,
       html,
     });
-    console.log(`📧 [EMAIL SENT] To: ${to} | Subject: ${subject} | ID: ${info.messageId}`);
-    return info;
+    console.log(`📧 [EMAIL SENT] To: ${to} | Subject: ${subject} | ID: ${data.id}`);
+    return data;
   } catch (err) {
     console.error(`📧 [EMAIL FAILED] To: ${to} | Subject: ${subject} | Error: ${err.message}`);
     // Don't throw — email failure shouldn't crash the request

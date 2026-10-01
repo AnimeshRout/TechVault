@@ -110,7 +110,7 @@
 | MongoDB + Mongoose 8 | Database & ODM |
 | Stripe | Payment processing |
 | Passport.js | Google OAuth2 |
-| Nodemailer | Transactional emails |
+| Resend | Transactional emails |
 | Cloudinary | Image hosting |
 | PDFKit | Invoice PDF generation |
 | JSON Web Tokens | Authentication |
@@ -194,7 +194,7 @@ enerzcloud_ecom/
 │           │   ├── reviewRoutes.js
 │           │   └── adminRoutes.js
 │           ├── services/
-│           │   ├── emailService.js    # Nodemailer templates
+│           │   ├── emailService.js    # Resend email templates
 │           │   ├── invoiceService.js  # PDF invoice generation
 │           │   ├── pricingService.js  # Price calculation
 │           │   ├── stockService.js    # Stock management
@@ -294,11 +294,9 @@ GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
 GOOGLE_CALLBACK_URL=http://localhost:5000/api/auth/google/callback
 
-# ─── Email (SMTP) ────────────────────────────────
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USER=your_email@gmail.com
-SMTP_PASS=your_app_password
+# ─── Email (Resend) ───────────────────────────────
+RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxx
+FROM_EMAIL=your_email@gmail.com
 FROM_NAME=TechVault
 ADMIN_ALERT_EMAIL=admin@yourdomain.com
 ```
@@ -420,7 +418,7 @@ To customize the checkout page logo/branding, go to:
 
 ## 📧 Email Notifications
 
-Emails are sent for the following events (via Nodemailer with professional HTML templates):
+Emails are sent for the following events (via Resend with professional HTML templates):
 
 | Event | Email Sent |
 |-------|------------|
@@ -434,7 +432,7 @@ Emails are sent for the following events (via Nodemailer with professional HTML 
 | Password reset | Reset link email |
 | Back in stock | Product availability alert |
 
-> If SMTP is not configured, emails are skipped gracefully (logged to console).
+> If `RESEND_API_KEY` is not configured, emails are skipped gracefully (logged to console).
 
 ---
 
