@@ -8,7 +8,7 @@ import GoogleIcon from '../../components/ui/GoogleIcon';
 import toast from 'react-hot-toast';
 import './AuthPage.css';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const BACKEND_URL = (import.meta.env.VITE_API_URL || '/api').replace(/\/api\/?$/, '') || window.location.origin;
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -44,7 +44,7 @@ export default function RegisterPage() {
   };
 
   const handleGoogleSignup = () => {
-    window.location.href = `${API_BASE}/api/auth/google?from=user`;
+    window.location.href = `${BACKEND_URL}/api/auth/google?from=user`;
   };
 
   return (
@@ -61,7 +61,7 @@ export default function RegisterPage() {
         transition={{ duration: 0.5 }}
       >
         <div className="auth-header">
-          <Link to="/" className="auth-logo">⚡ TechVault</Link>
+          <Link to="/" className="auth-logo" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><img src="/logo.png" alt="TechVault" style={{ height: '32px' }} /> TechVault</Link>
           <h1>Create Account</h1>
           <p>Join TechVault and start shopping the best tech</p>
         </div>

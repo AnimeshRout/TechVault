@@ -1,24 +1,4 @@
-/**
- * ============================================================================
- * PRODUCT MODEL
- * ============================================================================
- * Fields: title, slug (unique), brand, category (enum), price, discountPrice,
- *         stock, images[], description, specs (Map), variants[], averageRating,
- *         numReviews, isFeatured
- *
- * Concurrency & Safety:
- *   - All stock mutations MUST use atomic $inc with guard: { stock: { $gte: qty } }
- *   - Never read-then-write stock — always findOneAndUpdate atomically
- *   - Text index on title + brand + description for fast search
- *
- * Indexes:
- *   - { slug: 1 }              unique — URL-friendly product lookup
- *   - { category: 1, brand: 1 } compound — catalog filtering
- *   - { title: 'text', brand: 'text', description: 'text' } — full-text search
- *   - { isFeatured: 1 }        — featured products query
- *   - { price: 1 }             — price sort/filter
- * ============================================================================
- */
+// PRODUCT MODEL
 import mongoose from 'mongoose';
 import slugify from 'slugify';
 

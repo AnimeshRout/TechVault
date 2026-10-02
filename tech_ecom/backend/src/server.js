@@ -1,9 +1,4 @@
-/**
- * ============================================================================
- * TechVault — Express.js Server Entry Point (v2.0)
- * Full security middleware stack, route mounting, cron jobs, and graceful shutdown.
- * ============================================================================
- */
+// TechVault — Express.js Server Entry Point (v2.0)
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';

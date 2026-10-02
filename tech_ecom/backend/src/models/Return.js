@@ -1,8 +1,4 @@
-/**
- * ============================================================================
- * RETURN MODEL
- * ============================================================================
- */
+// RETURN MODEL
 import mongoose from 'mongoose';
 
 const ReturnSchema = new mongoose.Schema(

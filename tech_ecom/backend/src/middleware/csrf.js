@@ -1,21 +1,4 @@
-/**
- * ============================================================================
- * CSRF PROTECTION — Cross-origin safe, double-submit pattern
- * ============================================================================
- * Problem: Frontend (vercel.app) and backend (onrender.com) are different
- * origins. JS on vercel.app CANNOT read cookies set by onrender.com.
- *
- * Solution:
- * 1. On login/register/refresh, generate a CSRF token
- * 2. Set it as a cookie (sameSite=None, secure) — browser auto-sends it
- * 3. ALSO return it in the response body — frontend stores in memory
- * 4. On mutating requests, frontend sends stored token as X-CSRF-Token header
- * 5. Backend validates: cookie value === header value
- *
- * The attacker's site can trigger the cookie to be sent (it's sameSite=None),
- * but they can NEVER read the token value to put in the header.
- * ============================================================================
- */
+// CSRF PROTECTION — Cross-origin safe, double-submit pattern
 import crypto from 'crypto';
 
 /**

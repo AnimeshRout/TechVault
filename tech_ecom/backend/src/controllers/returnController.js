@@ -1,8 +1,4 @@
-/**
- * ============================================================================
- * RETURN CONTROLLER — Returns/Refunds Flow
- * ============================================================================
- */
+// RETURN CONTROLLER — Returns/Refunds Flow
 import Stripe from 'stripe';
 import Return from '../models/Return.js';
 import Order from '../models/Order.js';

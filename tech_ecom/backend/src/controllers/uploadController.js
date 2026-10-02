@@ -1,11 +1,4 @@
-/**
- * ============================================================================
- * UPLOAD CONTROLLER
- * ============================================================================
- * Handles image upload to Cloudinary using multer memory storage.
- * Supports multi-image upload for product galleries.
- * ============================================================================
- */
+// UPLOAD CONTROLLER
 import multer from 'multer';
 import { cloudinary } from '../config/cloudinary.js';
 import AppError from '../utils/AppError.js';

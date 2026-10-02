@@ -1,12 +1,4 @@
-/**
- * ============================================================================
- * STOCK RESERVATION MODEL
- * ============================================================================
- * Reserves stock when items are added to cart. Uses MongoDB TTL index
- * (expireAfterSeconds: 0 on expiresAt) for automatic cleanup.
- * A cron job acts as a secondary fallback.
- * ============================================================================
- */
+// STOCK RESERVATION MODEL
 import mongoose from 'mongoose';
 
 const StockReservationSchema = new mongoose.Schema(

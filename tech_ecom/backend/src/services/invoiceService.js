@@ -1,8 +1,4 @@
-/**
- * ============================================================================
- * INVOICE SERVICE — Server-side PDF generation with PDFKit
- * ============================================================================
- */
+// INVOICE SERVICE — Server-side PDF generation with PDFKit
 import PDFDocument from 'pdfkit';
 
 /**

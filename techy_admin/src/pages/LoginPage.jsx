@@ -3,7 +3,8 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import useAuthStore from '../stores/authStore';
 import toast from 'react-hot-toast';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+// Backend root URL (without /api) for Google OAuth redirects
+const BACKEND_URL = (import.meta.env.VITE_API_URL || '/api').replace(/\/api\/?$/, '') || window.location.origin;
 
 // Official Google "G" logo SVG
 function GoogleIcon({ size = 20 }) {
@@ -52,15 +53,16 @@ export default function LoginPage() {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = API_BASE + "/api/auth/google?from=admin";
+    window.location.href = BACKEND_URL + "/api/auth/google?from=admin";
   };
 
   return (
     <div className="auth-page">
       <div className="auth-card card">
-        <div className="auth-logo">
+        <div className="auth-logo" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+          <img src="/logo.png" alt="TechVault" style={{ height: '36px', width: 'auto' }} />
           <span style={{ background: 'linear-gradient(135deg, #6366f1, #06b6d4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-            ⚡ TechVault Admin
+            TechVault Admin
           </span>
         </div>
         <h1>Admin Login</h1>

@@ -1,13 +1,4 @@
-/**
- * ============================================================================
- * WEBHOOK CONTROLLER — Stripe Webhook Handler
- * ============================================================================
- * POST /api/webhooks/stripe
- * - Raw body for signature verification
- * - Handles payment_intent.succeeded / .payment_failed
- * - Idempotent — checks if order already processed
- * ============================================================================
- */
+// WEBHOOK CONTROLLER — Stripe Webhook Handler
 import Stripe from 'stripe';
 import Order from '../models/Order.js';
 import User from '../models/User.js';

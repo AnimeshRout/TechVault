@@ -1,20 +1,4 @@
-/**
- * ============================================================================
- * USER MODEL
- * ============================================================================
- * Fields: name, email, password (bcrypt hashed), role, addresses[], wishlist[],
- *         refreshToken, avatar, isActive
- *
- * Security:
- *   - Password auto-hashed on save with bcryptjs (salt rounds: 12)
- *   - Password field excluded from queries by default (select: false)
- *   - Instance method comparePassword() for login verification
- *   - Refresh token stored for rotation mechanism
- *
- * Indexes:
- *   - { email: 1 } unique — fast login lookups
- * ============================================================================
- */
+// USER MODEL
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 

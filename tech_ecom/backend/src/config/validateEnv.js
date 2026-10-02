@@ -1,8 +1,4 @@
-/**
- * ============================================================================
- * ENV VALIDATION — Crash loudly at boot if required vars are missing
- * ============================================================================
- */
+// ENV VALIDATION — Crash loudly at boot if required vars are missing
 import Joi from 'joi';
 
 const envSchema = Joi.object({

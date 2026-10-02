@@ -1,18 +1,4 @@
-/**
- * ============================================================================
- * ORDER CONTROLLER
- * ============================================================================
- * Order placement uses MongoDB ACID Transactions to ensure atomicity:
- *   1. Validate all items have sufficient stock
- *   2. Decrement stock for all items (atomic $inc with $gte guard)
- *   3. Create order with product snapshots
- *   4. Clear user's cart
- * If ANY step fails → entire transaction rolls back cleanly.
- *
- * This prevents the critical race condition where multiple users try to
- * buy the last unit simultaneously.
- * ============================================================================
- */
+// ORDER CONTROLLER
 import mongoose from 'mongoose';
 import Order from '../models/Order.js';
 import Product from '../models/Product.js';

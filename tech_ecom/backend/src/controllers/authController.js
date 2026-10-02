@@ -1,18 +1,4 @@
-/**
- * ============================================================================
- * AUTH CONTROLLER
- * ============================================================================
- * Handles user authentication with JWT tokens stored in httpOnly cookies.
- * Implements refresh token rotation for enhanced security.
- *
- * Endpoints:
- *   POST /api/auth/register — Create account, issue tokens
- *   POST /api/auth/login    — Verify credentials, issue tokens
- *   POST /api/auth/logout   — Clear cookies, invalidate refresh token
- *   POST /api/auth/refresh  — Rotate refresh token, issue new access token
- *   GET  /api/auth/me       — Get current authenticated user profile
- * ============================================================================
- */
+// AUTH CONTROLLER
 import User from '../models/User.js';
 import AppError from '../utils/AppError.js';
 import catchAsync from '../utils/catchAsync.js';

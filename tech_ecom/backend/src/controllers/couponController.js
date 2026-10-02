@@ -1,11 +1,4 @@
-/**
- * ============================================================================
- * COUPON CONTROLLER
- * ============================================================================
- * Admin: CRUD coupons
- * User: Validate coupon code
- * ============================================================================
- */
+// COUPON CONTROLLER
 import Coupon from '../models/Coupon.js';
 import AppError from '../utils/AppError.js';
 import catchAsync from '../utils/catchAsync.js';

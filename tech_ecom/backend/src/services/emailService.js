@@ -1,12 +1,4 @@
-/**
- * ============================================================================
- * EMAIL SERVICE — Resend transactional email system
- * ============================================================================
- * Professional HTML email templates matching TechVault branding.
- * Supports: order confirmation, shipped, delivered, refund, password reset,
- *           welcome, back-in-stock, low-stock admin alerts.
- * ============================================================================
- */
+// EMAIL SERVICE — Resend transactional email system
 import { Resend } from 'resend';
 
 // ─── RESEND CLIENT ───────────────────────────────────────────────────────────

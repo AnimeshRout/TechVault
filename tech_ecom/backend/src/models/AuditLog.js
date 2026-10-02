@@ -1,10 +1,4 @@
-/**
- * ============================================================================
- * AUDIT LOG MODEL
- * ============================================================================
- * Tracks all admin mutations AND failed authorization attempts.
- * ============================================================================
- */
+// AUDIT LOG MODEL
 import mongoose from 'mongoose';
 
 const AuditLogSchema = new mongoose.Schema(

@@ -1,14 +1,4 @@
-/**
- * ============================================================================
- * COUPON MODEL
- * ============================================================================
- * Supports percentage and fixed-amount discounts with:
- * - Minimum order amount threshold
- * - Maximum usage cap (global + per-user)
- * - Expiry date
- * - Active/inactive toggle
- * ============================================================================
- */
+// COUPON MODEL
 import mongoose from 'mongoose';
 
 const CouponSchema = new mongoose.Schema(

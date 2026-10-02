@@ -1,21 +1,4 @@
-/**
- * ============================================================================
- * CART MODEL
- * ============================================================================
- * Fields: user (ref), items[] { product, variant, quantity, unitPrice }
- *
- * Concurrency Safety:
- *   - Add item: Uses $addToSet or conditional $inc (upsert pattern)
- *   - Remove item: Uses atomic $pull
- *   - Update quantity: Uses findOneAndUpdate with quantity bounds check
- *   - All operations are atomic — no read-then-write patterns
- *
- * Design:
- *   - One cart per user (enforced by unique user index)
- *   - Cart is server-synced: frontend sends optimistic updates, backend is truth
- *   - Cart items store unitPrice at time of addition (for price change tracking)
- * ============================================================================
- */
+// CART MODEL
 import mongoose from 'mongoose';
 
 const cartItemSchema = new mongoose.Schema(

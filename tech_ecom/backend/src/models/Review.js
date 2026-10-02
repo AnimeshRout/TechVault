@@ -1,23 +1,4 @@
-/**
- * ============================================================================
- * REVIEW MODEL
- * ============================================================================
- * Fields: user (ref), product (ref), rating (1-5), comment, verifiedPurchase
- *
- * Constraints:
- *   - One review per product per user (compound unique index)
- *   - Rating 1-5 integer only
- *   - verifiedPurchase auto-set by checking user's order history
- *
- * Hooks:
- *   - post-save & post-findOneAndDelete: Recalculates product averageRating
- *     and numReviews using aggregation pipeline
- *
- * Indexes:
- *   - { product: 1, user: 1 } unique — one review per user per product
- *   - { product: 1, createdAt: -1 }  — product reviews sorted by newest
- * ============================================================================
- */
+// REVIEW MODEL
 import mongoose from 'mongoose';
 
 const ReviewSchema = new mongoose.Schema(

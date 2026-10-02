@@ -1,11 +1,4 @@
-/**
- * ============================================================================
- * WEBHOOK ROUTES
- * ============================================================================
- * NOTE: This route MUST be mounted BEFORE express.json() middleware
- * because Stripe requires the raw body for signature verification.
- * ============================================================================
- */
+// WEBHOOK ROUTES
 import express from 'express';
 import { handleStripeWebhook } from '../controllers/webhookController.js';
 

@@ -1,15 +1,4 @@
-/**
- * ============================================================================
- * GOOGLE AUTH CONTROLLER
- * ============================================================================
- * Handles the Google OAuth callback — issues our own JWT tokens.
- * Supports both user and admin login flows via a `state` param.
- * 
- * Fixed:
- * - Issues CSRF token (same as regular login path)
- * - Admin role check rejects non-admins cleanly
- * ============================================================================
- */
+// GOOGLE AUTH CONTROLLER
 import {
   generateAccessToken,
   generateRefreshToken,

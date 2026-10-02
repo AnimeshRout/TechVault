@@ -1,12 +1,4 @@
-/**
- * ============================================================================
- * CART CONTROLLER
- * ============================================================================
- * Server-synced cart with atomic operations.
- * All mutations use MongoDB atomic operators ($push, $pull, $inc, $set)
- * to prevent race conditions with concurrent requests.
- * ============================================================================
- */
+// CART CONTROLLER
 import Cart from '../models/Cart.js';
 import Product from '../models/Product.js';
 import AppError from '../utils/AppError.js';

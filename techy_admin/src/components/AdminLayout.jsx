@@ -23,7 +23,7 @@ export default function AdminLayout({ children }) {
     <div className="admin-layout">
       <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
-          <span style={{ fontSize: '1.25rem' }}>⚡</span>
+          <img src="/logo.png" alt="TechVault" style={{ height: '32px', width: 'auto' }} />
           <span className="sidebar-logo">TechVault Admin</span>
         </div>
         <nav className="sidebar-nav">

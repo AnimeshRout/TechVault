@@ -1,12 +1,4 @@
-/**
- * ============================================================================
- * CRON JOBS SERVICE — Scheduled background tasks
- * ============================================================================
- * - Clean expired stock reservations (fallback to TTL index)
- * - Back-in-stock notifications
- * - Low-stock admin alerts
- * ============================================================================
- */
+// CRON JOBS SERVICE — Scheduled background tasks
 import cron from 'node-cron';
 import StockReservation from '../models/StockReservation.js';
 import StockNotification from '../models/StockNotification.js';

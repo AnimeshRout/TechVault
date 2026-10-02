@@ -1,19 +1,4 @@
-/**
- * ============================================================================
- * PASSPORT.JS — Google OAuth2 Strategy
- * ============================================================================
- * Flow:
- *  1. User clicks "Sign in with Google" → redirected to Google consent screen
- *  2. Google redirects back with profile → Passport calls verify callback
- *  3. We find-or-create the user in MongoDB
- *     - If from=admin, we ONLY find (never create) to avoid DB clutter
- *  4. Issue our own JWT access + refresh tokens (same as email/password login)
- *  5. Redirect to frontend with success
- *
- * Gap 2 fix: passReqToCallback = true so we can read the `state` param
- * and skip auto-creation when the request originates from the admin login.
- * ============================================================================
- */
+// PASSPORT.JS — Google OAuth2 Strategy
 import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import User from '../models/User.js';

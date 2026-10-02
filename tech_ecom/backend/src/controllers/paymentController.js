@@ -1,12 +1,4 @@
-/**
- * ============================================================================
- * PAYMENT CONTROLLER (Stripe)
- * ============================================================================
- * Handles Stripe Checkout Session creation, payment verification, and refunds.
- * Uses Stripe Checkout (hosted page) for card payments.
- * Sends order confirmation and payment emails.
- * ============================================================================
- */
+// PAYMENT CONTROLLER (Stripe)
 import Stripe from 'stripe';
 import Order from '../models/Order.js';
 import User from '../models/User.js';

@@ -1,8 +1,4 @@
-/**
- * ============================================================================
- * STOCK SERVICE — Reservation management
- * ============================================================================
- */
+// STOCK SERVICE — Reservation management
 import StockReservation from '../models/StockReservation.js';
 import Product from '../models/Product.js';
 

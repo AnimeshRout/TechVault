@@ -1,11 +1,4 @@
-/**
- * ============================================================================
- * AUDIT LOGGER MIDDLEWARE
- * ============================================================================
- * Logs admin actions + failed authorization attempts.
- * Usage: auditLog('CREATE', 'product', { description: '...' })
- * ============================================================================
- */
+// AUDIT LOGGER MIDDLEWARE
 import AuditLog from '../models/AuditLog.js';
 
 /**

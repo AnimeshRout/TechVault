@@ -1,11 +1,4 @@
-/**
- * ============================================================================
- * REVIEW CONTROLLER
- * ============================================================================
- * CRUD for product reviews with verified purchase auto-detection
- * and automatic product rating recalculation.
- * ============================================================================
- */
+// REVIEW CONTROLLER
 import Review from '../models/Review.js';
 import Product from '../models/Product.js';
 import AppError from '../utils/AppError.js';

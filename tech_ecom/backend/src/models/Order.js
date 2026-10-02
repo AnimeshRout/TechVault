@@ -1,27 +1,4 @@
-/**
- * ============================================================================
- * ORDER MODEL
- * ============================================================================
- * Fields: user (ref), orderItems[] (product snapshot), shippingAddress,
- *         paymentResult { status, transactionId, method }, pricing
- *         { subtotal, tax, shipping, total }, orderStatus (enum with timeline),
- *         statusHistory[] with timestamps
- *
- * Concurrency & Transactions:
- *   - Order placement MUST be wrapped in a MongoDB ACID Transaction:
- *     1. Validate stock for all items (atomic $gte check)
- *     2. Decrement stock for all items (atomic $inc)
- *     3. Create order document
- *     4. Clear user's cart
- *     If ANY step fails → entire transaction rolls back
- *
- * Design:
- *   - orderItems contain a SNAPSHOT of the product at purchase time
- *     (title, price, image) so the order history remains accurate
- *     even if the product is later modified or deleted
- *   - statusHistory tracks all status transitions with timestamps
- * ============================================================================
- */
+// ORDER MODEL
 import mongoose from 'mongoose';
 
 // Snapshot of a product at the time of purchase

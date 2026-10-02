@@ -44,7 +44,7 @@ export default function ResetPasswordPage() {
         transition={{ duration: 0.5 }}
       >
         <div className="auth-header">
-          <Link to="/" className="auth-logo">⚡ TechVault</Link>
+          <Link to="/" className="auth-logo" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><img src="/logo.png" alt="TechVault" style={{ height: '32px' }} /> TechVault</Link>
           <h1>Reset Password</h1>
           <p>Enter your new password below</p>
         </div>

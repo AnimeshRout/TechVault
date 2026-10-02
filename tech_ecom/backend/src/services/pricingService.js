@@ -1,11 +1,4 @@
-/**
- * ============================================================================
- * PRICING SERVICE — Tax, Shipping, and Discount Engine
- * ============================================================================
- * Replaces all hardcoded pricing. Configurable tax rates, shipping tiers,
- * and free-shipping thresholds.
- * ============================================================================
- */
+// PRICING SERVICE — Tax, Shipping, and Discount Engine
 
 // ─── TAX RATES BY STATE ──────────────────────────────────────────────────────
 const STATE_TAX_RATES = {

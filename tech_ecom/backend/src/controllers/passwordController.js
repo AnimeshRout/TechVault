@@ -1,12 +1,4 @@
-/**
- * ============================================================================
- * PASSWORD CONTROLLER — Forgot/Reset Password Flow
- * ============================================================================
- * POST /api/auth/forgot-password — Send reset link
- * POST /api/auth/reset-password/:token — Reset with token
- * POST /api/auth/verify-email/:token — Verify email
- * ============================================================================
- */
+// PASSWORD CONTROLLER — Forgot/Reset Password Flow
 import crypto from 'crypto';
 import User from '../models/User.js';
 import AppError from '../utils/AppError.js';

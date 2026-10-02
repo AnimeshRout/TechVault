@@ -1,13 +1,4 @@
-/**
- * ============================================================================
- * PRODUCT CONTROLLER
- * ============================================================================
- * CRUD operations with full filtering, sorting, pagination, and search.
- * Uses APIFeatures utility for query building.
- * Admin-only: create, update, delete
- * Public: get all, get by slug, search, featured
- * ============================================================================
- */
+// PRODUCT CONTROLLER
 import Product from '../models/Product.js';
 import AppError from '../utils/AppError.js';
 import catchAsync from '../utils/catchAsync.js';
