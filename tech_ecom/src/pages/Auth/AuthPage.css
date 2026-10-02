@@ -53,12 +53,13 @@
 .auth-logo {
   font-size: 1.25rem;
   font-weight: 800;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   margin-bottom: var(--space-lg);
-  background: linear-gradient(135deg, var(--color-primary-light), var(--color-accent-light));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--color-primary-light);
+  text-decoration: none;
 }
 
 .auth-header h1 {

@@ -41,7 +41,7 @@ export default function ForgotPasswordPage() {
         transition={{ duration: 0.5 }}
       >
         <div className="auth-header">
-          <Link to="/" className="auth-logo" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><img src="/logo.png" alt="TechVault" style={{ height: '32px' }} /> TechVault</Link>
+          <Link to="/" className="auth-logo" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', textDecoration: 'none' }}><img src="/logo.png" alt="TechVault" style={{ height: '32px' }} /> TechVault</Link>
           <h1>{isSent ? 'Check Your Email' : 'Forgot Password?'}</h1>
           <p>
             {isSent
